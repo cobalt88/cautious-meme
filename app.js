@@ -1,16 +1,17 @@
-const http = require('http');
-const express = require('express')
-const app = express()
-const server = http.createServer(app);
+const express = require('express');
+const bodyParser = require('body-parser');
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 
+const PORT = process.env.PORT || 3002;
+const app = express();
 
-app.use((req, res, next) => {
-  console.log('in the middleware');
-  next(); //allows the request to continue ti the next middleware in line
+app.use(bodyParser.urlencoded({extended: false}));
+app.use('/admin', adminRoutes);
+app.use('/shop', shopRoutes);
 
+app.use((req, res,) => {
+  res.status(404).send('<h1>Error 404, Page Not Found</h1>');
 });
 
-app.use((req, res, next) => {
-  console.log('in the middleware 2')
-})
-server.listen(3001);
+app.listen(PORT);
