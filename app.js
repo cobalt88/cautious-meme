@@ -9,7 +9,7 @@ const app = express();
 
 app.engine(
   'hbs',
-  expressHbs({
+  expressHbs.engine({
     layoutsDir: 'views/layouts/',
     defaultLayout: 'main-layout',
     extname: 'hbs'
